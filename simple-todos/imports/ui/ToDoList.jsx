@@ -1,4 +1,5 @@
 import React from "react";
+import { Task } from "./Task";
 
 export const ToDoList = () => {
   const getTasks = () => {
@@ -12,7 +13,7 @@ export const ToDoList = () => {
   return (
     <ul>
       {getTasks().map(task => (
-        <li key={task._id}>{task.text}</li>
+        <Task key={task._id} task={task} />
       ))}
     </ul>
   );
