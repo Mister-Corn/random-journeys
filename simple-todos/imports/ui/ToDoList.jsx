@@ -1,6 +1,8 @@
 import React from 'react';
-import { withTracker } from 'meteor/react-meteor-data';
+// Components
 import { Task } from './Task';
+// Meteor Data
+import { withTracker } from 'meteor/react-meteor-data';
 import { Tasks } from '../api/tasks';
 
 const ToDoList = (props) => {
@@ -23,6 +25,6 @@ const ToDoList = (props) => {
 
 export default withTracker(() => {
   return {
-    tasks: Tasks.find({}).fetch(),
+    tasks: Tasks.find({}, { sort: { createdAt: -1 } }).fetch(),
   };
 })(ToDoList);
