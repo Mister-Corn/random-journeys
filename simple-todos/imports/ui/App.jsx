@@ -2,8 +2,11 @@ import React, { useState } from 'react';
 // Components
 import Form from './Form';
 import ToDoList from './ToDoList';
+// Meteor Data
+import { withTracker } from 'meteor/react-meteor-data';
+import { Tasks } from '../api/tasks';
 
-const App = () => {
+const App = ({ tasks, incompleteCount }) => {
   const [hideCompleted, setHideCompleted] = useState(false);
 
   const toggleHideCompleted = () => setHideCompleted((prev) => !prev);
@@ -20,9 +23,14 @@ const App = () => {
         Hide Completed Tasks
       </label>
       <Form />
-      <ToDoList hideCompleted={hideCompleted} />
+      <ToDoList tasks={tasks} hideCompleted={hideCompleted} />
     </div>
   );
 };
 
-export default App;
+export default withTracker(() => {
+  return {
+    tasks: Tasks.find({}, { sort: { createdAt: -1 } }).fetch(),
+    incompleteCount: Tasks.find({ checked: { $ne: true } }).count(),
+  };
+})(App);

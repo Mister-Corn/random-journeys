@@ -11,16 +11,20 @@ const ToDoList = (props) => {
     : props.tasks;
 
   return (
-    <ul>
-      {filteredTasks.map((task) => (
-        <Task key={task._id} task={task} />
-      ))}
-    </ul>
+    <>
+      <h2># of Incomplete Items: {props.incompleteCount}</h2>
+      <ul>
+        {filteredTasks.map((task) => (
+          <Task key={task._id} task={task} />
+        ))}
+      </ul>
+    </>
   );
 };
 
 export default withTracker(() => {
   return {
     tasks: Tasks.find({}, { sort: { createdAt: -1 } }).fetch(),
+    incompleteCount: Tasks.find({ checked: { $ne: true } }).count(),
   };
 })(ToDoList);
