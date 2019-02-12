@@ -6,9 +6,13 @@ import { withTracker } from 'meteor/react-meteor-data';
 import { Tasks } from '../api/tasks';
 
 const ToDoList = (props) => {
+  const filteredTasks = props.hideCompleted
+    ? props.tasks.filter((task) => !task.checked)
+    : props.tasks;
+
   return (
     <ul>
-      {props.tasks.map((task) => (
+      {filteredTasks.map((task) => (
         <Task key={task._id} task={task} />
       ))}
     </ul>
