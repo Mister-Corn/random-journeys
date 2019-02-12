@@ -13,7 +13,7 @@ const App = ({ tasks, incompleteCount }) => {
 
   return (
     <div className='container'>
-      <h1>To-Do List</h1>
+      <h1>To-Do List: {incompleteCount}</h1>
       <label className='hide-completed'>
         <input
           type='checkbox'
