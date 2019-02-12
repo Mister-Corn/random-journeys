@@ -6,14 +6,6 @@ import { withTracker } from 'meteor/react-meteor-data';
 import { Tasks } from '../api/tasks';
 
 const ToDoList = (props) => {
-  const getTasks = () => {
-    return [
-      { _id: 1, text: 'This is task 1' },
-      { _id: 2, text: 'This is task 2' },
-      { _id: 3, text: 'This is task 3' },
-    ];
-  };
-
   return (
     <ul>
       {props.tasks.map((task) => (
