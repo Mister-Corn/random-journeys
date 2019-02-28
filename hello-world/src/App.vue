@@ -10,6 +10,7 @@
 import Header from "./components/layout/Header.vue";
 import Todos from "./components/ToDos.vue";
 import AddTodo from "./components/AddTodo.vue";
+const url = "https://jsonplaceholder.typicode.com/todos";
 export default {
   name: "app",
   components: {
@@ -19,27 +20,36 @@ export default {
   },
   data() {
     return {
-      todos: [
-        {
-          id: 1,
-          title: "Todo One",
-          completed: false
-        },
-        {
-          id: 2,
-          title: "Todo Two",
-          completed: false
-        }
-      ]
+      todos: []
     };
   },
   methods: {
     addTodo(newTodo) {
-      this.todos = [...this.todos, newTodo];
+      fetch(url, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify(newTodo)
+      })
+        .then(response => response.json())
+        .then(data => (this.todos = [...this.todos, data]));
     },
     deleteTodo(id) {
-      this.todos = this.todos.filter(todo => todo.id !== id);
+      fetch(`${url}/${id}`, {
+        method: "DELETE"
+      })
+        .then(() => {
+          this.todos = this.todos.filter(todo => todo.id !== id);
+        })
+        .catch(err => err);
     }
+  },
+  created() {
+    fetch(`${url}?_limit=5`)
+      .then(response => response.json())
+      .then(json => (this.todos = json))
+      .catch(err => err);
   }
 };
 </script>
