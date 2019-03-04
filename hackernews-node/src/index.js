@@ -40,6 +40,17 @@ const resolvers = {
         return link;
       });
       return updatedLink;
+    },
+    deleteLink: (parents, args) => {
+      let deletedLink;
+      links = links.filter(link => {
+        const match = link.id === args.id;
+        if (match) {
+          deletedLink = link;
+        }
+        return !match;
+      });
+      return deletedLink;
     }
   }
   // If your object key/value pairs map vis-a-vis with the type def,
