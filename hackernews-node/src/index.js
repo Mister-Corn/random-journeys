@@ -1,4 +1,4 @@
-const { GraphQLServer } = require("graphql-yoga");
+const { GraphQLServer } = require('graphql-yoga');
 
 const typeDefs = `
 type Query {
@@ -11,27 +11,31 @@ type Link {
     description: String!
     url: String!
 }
+
+type Mutation {
+    post(url: String!, description: String!): Link!
+}
 `;
 
 // Static Dummy Data to Start
 let links = [
   {
-    id: "link-0",
-    url: "www.howtographql.com",
-    description: "Fullstack tutorial for GraphQL"
+    id: 'link-0',
+    url: 'www.howtographql.com',
+    description: 'Fullstack tutorial for GraphQL'
   }
 ];
 
 const resolvers = {
   Query: {
     info: () => `This is the API for the GraphQL Tutorial`,
-    feed: () => links,
-  },
-//   Link: {
-//       id: (parent) => parent.id,
-//       description: (parent) => parent.description,
-//       url: (parent) => parent.url,
-//   }
+    feed: () => links
+  }
+  //   Link: {
+  //       id: (parent) => parent.id,
+  //       description: (parent) => parent.description,
+  //       url: (parent) => parent.url,
+  //   }
 };
 
 const server = new GraphQLServer({

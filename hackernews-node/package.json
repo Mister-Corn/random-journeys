@@ -3,6 +3,8 @@
     "graphql-yoga": "^1.17.4"
   },
   "devDependencies": {
-    "nodemon": "^1.18.10"
+    "eslint": "^5.15.0",
+    "nodemon": "^1.18.10",
+    "prettier": "1.16.4"
   }
 }
